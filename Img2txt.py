@@ -1,20 +1,20 @@
-import threading
 from tkinter import *
 from tkinter import messagebox
 from tkinter import filedialog
 import os
 import pytesseract as tess
 from PIL import Image
+import threading
+
 
 tess.pytesseract.tesseract_cmd = r'C:/Program Files/Tesseract-OCR/tesseract.exe'
 
 root = Tk()
-root.geometry('425x250')
+root.geometry('425x250+550+200')
 root.minsize(425, 250)
 root.maxsize(425, 250)
 root.config(bg="grey")
 root.title("Image to Text")
-
 
 try:
     os.mkdir('pics')
@@ -56,7 +56,11 @@ def single_img():
     except:
         messagebox.showinfo("Error", "Select the image properly !!!")
 
+def run():
+    os.system("python dependencies//test.py")
+
 def multiple_img(_event = None):
+    threading.Thread(target=run).start()
     chk = True
     pics = os.listdir(default)
 
@@ -83,9 +87,7 @@ def multiple_img(_event = None):
     
     if chk == True:
         messagebox.showinfo("Status", "Done")
-        
-    
-
+                
 # main window
 def master_win():
     global root
